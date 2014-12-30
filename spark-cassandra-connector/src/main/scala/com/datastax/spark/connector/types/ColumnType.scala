@@ -67,6 +67,9 @@ object ColumnType {
     }
   }
 
+  // Lambdas are used here instead of TypeConverter instances, because a user can chain custom
+  // type converters for the builtin types by calling TypeConverter.registerConverter.
+  // If we instantiated converters in advance, using user defined converters would not be possible.
   private val primitiveConverterMap = Map[DataType, () => TypeConverter[_]](
     DataType.text() -> { () => TypeConverter.forType[String] },
     DataType.ascii() -> { () => TypeConverter.forType[String] },

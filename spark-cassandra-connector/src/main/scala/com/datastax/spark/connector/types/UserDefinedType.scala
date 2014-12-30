@@ -57,11 +57,8 @@ object UserDefinedType {
 
   def driverUDTValueConverter(dataType: DataType)(implicit protocolVersion: ProtocolVersion) =
     dataType match {
-      case dt: UserType =>
-        new OptionToNullConverter(
-          new DriverUDTValueConverter(dt))
-      case _ =>
-        throw new IllegalArgumentException("UserType expected.")
+      case dt: UserType => new DriverUDTValueConverter(dt)
+      case _            => throw new IllegalArgumentException("UserType expected.")
     }
 
 }
